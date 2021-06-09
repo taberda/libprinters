@@ -3,7 +3,7 @@
     {
         "name": "HP LaserJet Color M551",
         "ppd": "HP LaserJet 500 color M551.gz",
-        "driverRemotePath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m551.gz",
+        "driverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m551.gz",
         "options":
         [
             {
@@ -33,7 +33,7 @@
     {
         "name": "HP LaserJet M608",
         "ppd": "HP LaserJet M607 M608 M609.gz",
-        "driverRemotePath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m608.gz",
+        "driverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m608.gz",
         "options":
         [
             {
@@ -63,7 +63,7 @@
     {
         "name": "HP Color LaserJet M653",
         "ppd": "HP Color LaserJet M651.gz",
-        "driverRemotePath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m651.gz",
+        "driverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m651.gz",
         "options":
         [
             {
