@@ -12,7 +12,7 @@ function updateProgress(text)
 var GoPrintUri = "lpd://goprint-sw.mdc.musc.edu";
 
 // Json and gz files here.
-var repoUri = "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main";
+var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/main";
 
 // macOS stores PPD files here.
 var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
