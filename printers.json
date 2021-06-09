@@ -1,0 +1,37 @@
+[
+    {
+        "queue": "2flbwa",
+        "description": "2nd Floor A (Black & White)",
+        "model": "m608"
+    },
+    {
+        "queue": "2flbwb",
+        "description": "2nd Floor B (Black & White)",
+        "model": "m608"
+    },
+    {
+        "queue": "2flcolor",
+        "description": "2nd Floor Color",
+        "model": "m551"
+    },
+    {
+        "queue": "3flcolor",
+        "description": "3rd Floor Color",
+        "model": "m653"
+    },
+    {
+        "queue": "4flbwa",
+        "description": "4th Floor A (Black & White)",
+        "model": "m608"
+    },
+    {
+        "queue": "4flbwb",
+        "description": "4th Floor B (Black & White)",
+        "model": "m608"
+    },
+    {
+        "queue": "4flcolor",
+        "description": "4th Floor Color",
+        "model": "m551"
+    }
+]

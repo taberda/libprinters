@@ -1,0 +1,158 @@
+var app = Application.currentApplication();
+var finder = Application("Finder");
+app.includeStandardAdditions = true;
+
+var homeFolder = app.systemAttribute("HOME");
+
+function updateProgress(text)
+{
+    Progress.description = text;
+}
+
+var GoPrintUri = "lpd://goprint-sw.mdc.musc.edu";
+
+// Json and gz files here.
+var repoUri = "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main";
+
+// macOS stores PPD files here.
+var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
+
+// Downloaded items go here and will be deleted when the script is complete.
+var scriptFolder = Path("/tmp/LibPrinterSetup");
+
+// Download location for the HP driver pack, where we're saving to, where we're mounting it, and where its installer package is.
+var driverBundleDmgRemotePath = "https://updates.cdn-apple.com/2020/macos/001-41745-20201210-DBC9B46B-88B2-4032-87D9-449AF1D20804/HewlettPackardPrinterDrivers.dmg";
+var driverBundleDmgLocalName = "driverBundle.dmg";
+var driverBundleDmgLocalPath = Path(`${scriptFolder}/${driverBundleDmgLocalName}`);
+var driverBundleDmgMountPoint = Path("/Volumes/driverBundle");
+var driverBundlePkgLocalName = "HewlettPackardPrinterDrivers.pkg"
+var driverBundlePkgLocalPath = Path(`${driverBundleDmgMountPoint}/${driverBundlePkgLocalName}`);
+
+console.log(`driverBundleDmgLocalPath: ${driverBundleDmgLocalPath}`);
+console.log(`driverBundlePkgLocalPath: ${driverBundlePkgLocalPath}`);
+
+// SHA-256 checksums for the dmg and gz files.
+var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
+var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`, {administratorPrivileges:true});
+var sha256Hashes = JSON.parse(sha256HashesString);
+
+function testPath(path)
+{
+    console.log(`testPath path: ${path}`);
+    console.log(`testPath return: ${finder.exists(Path(path))}`);
+    return finder.exists(Path(path));
+}
+
+function testHash(folder,file)
+{
+    let hash = sha256Hashes[file].toLowerCase();
+    console.log(`testHash doShellScript: echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCodeString = app.doShellScript(`echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCode = parseInt(exitCodeString)
+    console.log(`testHash exitCode: ${exitCode}`);
+    if (exitCode == 0 || exitCode == 1)
+    {
+        console.log(`testHash return: ${!Boolean(exitCode)}`);
+        return !Boolean(exitCode);
+    }
+    else 
+    {
+        console.log(`Error testing SHA-256 hash; exit code ${exitcode}`);
+        throw "Error testing SHA-256 hash";
+    }
+}
+
+function testFile(folder,file)
+{
+    let path = Path(`${folder}/${file}`);
+    console.log(`testFile folder: ${folder}`);
+    console.log(`testFile file: ${file}`);
+    console.log(`testFile path: ${path}`);
+    console.log(`testFile return: ${testPath(path) && testHash(folder,file)}`)
+    return ( testPath(path) && testHash(folder,file) );
+}
+
+// Make a folder to hold the downloads, if it doesn't already exist.
+if ( testPath(scriptFolder) == false )
+{
+    updateProgress("Creating temporary folder");
+    app.doShellScript(`mkdir ${scriptFolder}`);
+}
+
+updateProgress("Downloading driver bundle (if needed)");
+
+// Download driver bundle unless it already exists and has the correct SHA-256 checksum.
+if (testFile(scriptFolder,driverBundleDmgLocalName) == false)
+{
+    console.log("Downloading driver bundle");
+    updateProgress("Downloading driver bundle");
+    app.doShellScript(`curl ${driverBundleDmgRemotePath} --output ${driverBundleDmgLocalPath}`);
+}
+
+updateProgress("Downloading printer information");
+// Keeping model definitions and printer list separate from app to facilitate future changes.
+// Need to pick a better host for production.
+var printerModelsRemotePath = `${repoUri}/printerModels.json`;
+var printersRemotePath = `${repoUri}/printers.json`;
+var printerModelsString = app.doShellScript(`curl ${printerModelsRemotePath}`);
+var printersString = app.doShellScript(`curl ${printersRemotePath}`);
+var printerModels = JSON.parse(printerModelsString);
+var printers = JSON.parse(printersString);
+
+// Mount the dmg file, run the installer, and then dismount the dmg.
+updateProgress("Installing driver bundle");
+console.log("Installing driver bundle");
+app.doShellScript(`hdiutil attach ${driverBundleDmgLocalPath} -mountpoint ${driverBundleDmgMountPoint}`);
+app.doShellScript(`installer -pkg ${driverBundlePkgLocalPath} -target /`, {administratorPrivileges:true});
+app.doShellScript(`hdiutil detach ${driverBundleDmgMountPoint}`);
+
+// Get PPD files that don't appear in the driver bundle from Apple.
+updateProgress("Downloading additional drivers");
+console.log("Downloading additional drivers");
+
+Object.values(printerModels).forEach(model => {
+    if ( testPath(`${ppdsPath}/${model.ppd}`) == false )
+    {
+        console.log(`Downloading ppd to ${ppdsPath}/${model.ppd}`);
+        app.doShellScript(`curl ${model.driverRemotePath} --output "${ppdsPath}/${model.ppd}"`, {administratorPrivileges:true});
+    }
+});
+
+// Install each printer listed in printers.json.
+updateProgress("Adding printers");
+
+printers.forEach(printer => {
+    printer.model = printerModels[printer.model];
+    // Build the option parameters for lpadmin.
+    let modelOptions = "";
+    printer.model.options.forEach(option => {
+        modelOptions += (`-o ${option.name}=${option.value} `);
+    });
+
+    Progress.additionalDescription = `adding ${printer.description}`;
+
+    let lpadminParams = [
+        `-p "${printer.queue}"`,
+        "-E",
+        `-D "${printer.description}"`,
+        `-v "${GoPrintUri}/${printer.queue}"`,
+        `-P "${ppdsPath}/${printer.model.ppd}"`,
+        `${modelOptions}`
+    ]
+    let paramString = lpadminParams.join(' ');
+
+    console.log(`adding ${printer.description}: (doShellScript) lpadmin ${paramString}`);
+    app.doShellScript(`lpadmin ${paramString}`);
+});
+
+// Delete the downloaded files.
+// Not using if downloading to /tmp works, because OS will clean it up later.
+// updateProgress("Deleting temporary folder");
+// console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
+// app.doShellScript(`rm -R ${scriptFolder}`);
+
+// Launch Printers & Scanners pane in System Preferences.
+var prefs = Application("System Preferences");
+var printersPane = prefs.panes.byName("Printers &\nScanners");
+prefs.activate();
+printersPane.reveal();
