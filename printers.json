@@ -15,6 +15,11 @@
         "model": "m551"
     },
     {
+        "queue": "3flbw",
+        "description": "3rd Floor Black & White",
+        "model": "m653"
+    },
+    {
         "queue": "3flcolor",
         "description": "3rd Floor Color",
         "model": "m653"

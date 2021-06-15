@@ -1,0 +1,70 @@
+{
+    "m551":
+    {
+        "description": "LaserJet M551",
+        "driverName": "HP Universal Printing PCL 6",
+        "driverZipRemoteName": "hpUniversalDriver.zip",
+        "driverInfLocalName:": "hpcu250u.inf",
+        "printerProperties":
+        [
+            {
+                "propertyName": "Config:Tray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
+            }
+        ]
+    },
+
+    "m608":
+    {
+        "description": "LaserJet M608",
+        "driverName": "HP Universal Printing PCL 6",
+        "driverZipRemoteName": "hpUniversalDriver.zip",
+        "driverInfLocalName:": "hpcu250u.inf",
+        "printerProperties":
+        [
+            {
+                "propertyName": "Config:OptionalTray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
+            }
+        ]
+    },
+
+    "m653":
+    {
+        "description": "LaserJet M653",
+        "driverName": "HP Universal Printing PCL 6",
+        "driverZipRemoteName": "hpUniversalDriver.zip",
+        "driverInfLocalName:": "hpcu250u.inf",
+        "printerProperties":
+        [
+            {
+                "propertyName": "Config:OptionalTray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
+            }
+        ]
+    }
+}
