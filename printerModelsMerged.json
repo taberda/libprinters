@@ -1,29 +1,10 @@
 {
     "m551":
     {
-        "description": "HP LaserJet Color M551",
-        "macDriverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m551.gz",
-        "ppdName": "HP LaserJet 500 color M551.gz",
-        "winDriverName": "HP Universal Printing PCL 6",
-        "winDriverZipRemoteName": "hpUniversalDriver.zip",
-        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
-        "winDriverInfLocalName": "hpcu250u.inf",
-        "winPrinterProperties":
-        [
-            {
-                "propertyName": "Config:Tray3",
-                "value": "Installed"
-            },
-            {
-                "propertyName": "Config:DuplexUnit",
-                "value": "Installed"
-            },
-            {
-                "propertyName": "Config:ManualDuplex",
-                "value": "False"
-            }
-        ],
-        "macOptions":
+        "name": "HP LaserJet Color M551",
+        "ppd": "HP LaserJet 500 color M551.gz",
+        "driverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m551.gz",
+        "options":
         [
             {
                 "name": "Option1",
@@ -45,14 +26,7 @@
                 "name": "printer-is-shared",
                 "value": "false"
             }
-        ]
-    },
-
-    "m608":
-    {
-        "description": "HP LaserJet M608",
-        "macDriverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m608.gz",
-        "ppdName": "HP LaserJet M607 M608 M609.gz",
+        ],
         "winDriverName": "HP Universal Printing PCL 6",
         "winDriverZipRemoteName": "hpUniversalDriver.zip",
         "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
@@ -60,7 +34,7 @@
         "winPrinterProperties":
         [
             {
-                "propertyName": "Config:OptionalTray3",
+                "propertyName": "Config:Tray3",
                 "value": "Installed"
             },
             {
@@ -71,8 +45,15 @@
                 "propertyName": "Config:ManualDuplex",
                 "value": "False"
             }
-        ],
-        "macOptions":
+        ]
+    },
+
+    "m608":
+    {
+        "name": "HP LaserJet M608",
+        "ppd": "HP LaserJet M607 M608 M609.gz",
+        "driverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m608.gz",
+        "options":
         [
             {
                 "name": "Option1",
@@ -93,35 +74,35 @@
             {
                 "name": "printer-is-shared",
                 "value": "false"
+            }
+        ],
+        "winDriverName": "HP Universal Printing PCL 6",
+        "winDriverZipRemoteName": "hpUniversalDriver.zip",
+        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
+        "winDriverInfLocalName": "hpcu250u.inf",
+        "winPrinterProperties":
+        [
+            {
+                "propertyName": "Config:OptionalTray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
             }
         ]
     },
 
     "m653":
     {
-        "description": "HP Color LaserJet M653",
-        "macDriverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m651.gz",
-        "ppdName": "HP Color LaserJet M651.gz",
-        "winDriverName": "HP Universal Printing PCL 6",
-        "winDriverZipRemoteName": "hpUniversalDriver.zip",
-        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
-        "winDriverInfLocalName": "hpcu250u.inf",
-        "winPrinterProperties":
-        [
-            {
-                "propertyName": "Config:OptionalTray3",
-                "value": "Installed"
-            },
-            {
-                "propertyName": "Config:DuplexUnit",
-                "value": "Installed"
-            },
-            {
-                "propertyName": "Config:ManualDuplex",
-                "value": "False"
-            }
-        ],
-        "macOptions":
+        "name": "HP Color LaserJet M653",
+        "ppd": "HP Color LaserJet M651.gz",
+        "driverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m651.gz",
+        "options":
         [
             {
                 "name": "Option1",
@@ -142,6 +123,25 @@
             {
                 "name": "printer-is-shared",
                 "value": "false"
+            }
+        ],
+        "winDriverName": "HP Universal Printing PCL 6",
+        "winDriverZipRemoteName": "hpUniversalDriver.zip",
+        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
+        "winDriverInfLocalName": "hpcu250u.inf",
+        "winPrinterProperties":
+        [
+            {
+                "propertyName": "Config:OptionalTray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
             }
         ]
     }
