@@ -1,0 +1,148 @@
+{
+    "m551":
+    {
+        "description": "HP LaserJet Color M551",
+        "macDriverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m551.gz",
+        "ppdName": "HP LaserJet 500 color M551.gz",
+        "winDriverName": "HP Universal Printing PCL 6",
+        "winDriverZipRemoteName": "hpUniversalDriver.zip",
+        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
+        "winDriverInfLocalName": "hpcu250u.inf",
+        "winPrinterProperties":
+        [
+            {
+                "propertyName": "Config:Tray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
+            }
+        ],
+        "macOptions":
+        [
+            {
+                "name": "Option1",
+                "value": "true"
+            },
+            {
+                "name": "Duplex",
+                "value": "DuplexNoTumble"
+            },
+            {
+                "name": "HPOption_Duplexer",
+                "value": "True"
+            },
+            {
+                "name": "HPOption_Tray3",
+                "value": "HP500SheetInputTray"
+            },
+            {
+                "name": "printer-is-shared",
+                "value": "false"
+            }
+        ]
+    },
+
+    "m608":
+    {
+        "description": "HP LaserJet M608",
+        "macDriverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m608.gz",
+        "ppdName": "HP LaserJet M607 M608 M609.gz",
+        "winDriverName": "HP Universal Printing PCL 6",
+        "winDriverZipRemoteName": "hpUniversalDriver.zip",
+        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
+        "winDriverInfLocalName": "hpcu250u.inf",
+        "winPrinterProperties":
+        [
+            {
+                "propertyName": "Config:OptionalTray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
+            }
+        ],
+        "macOptions":
+        [
+            {
+                "name": "Option1",
+                "value": "True"
+            },
+            {
+                "name": "Duplex",
+                "value": "DuplexNoTumble"
+            },
+            {
+                "name": "HPOption_Duplexer",
+                "value": "True"
+            },
+            {
+                "name": "HPOption_Tray3",
+                "value": "HP550SheetInputTray"
+            },
+            {
+                "name": "printer-is-shared",
+                "value": "false"
+            }
+        ]
+    },
+
+    "m653":
+    {
+        "description": "HP Color LaserJet M653",
+        "macDriverRemotePath": "https://raw.githubusercontent.com/taberda/libprinters/main/ppd/m651.gz",
+        "ppdName": "HP Color LaserJet M651.gz",
+        "winDriverName": "HP Universal Printing PCL 6",
+        "winDriverZipRemoteName": "hpUniversalDriver.zip",
+        "winDriverZipRemotePath": "https://github.com/taberda/libprinters/raw/wip-add-windows/windows/hpUniversalDriver.zip",
+        "winDriverInfLocalName": "hpcu250u.inf",
+        "winPrinterProperties":
+        [
+            {
+                "propertyName": "Config:OptionalTray3",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:DuplexUnit",
+                "value": "Installed"
+            },
+            {
+                "propertyName": "Config:ManualDuplex",
+                "value": "False"
+            }
+        ],
+        "macOptions":
+        [
+            {
+                "name": "Option1",
+                "value": "True"
+            },
+            {
+                "name": "Duplex",
+                "value": "DuplexNoTumble"
+            },
+            {
+                "name": "HPOption_Duplexer",
+                "value": "True"
+            },
+            {
+                "name": "HPOption_Tray3",
+                "value": "HP550SheetInputTray"
+            },
+            {
+                "name": "printer-is-shared",
+                "value": "false"
+            }
+        ]
+    }
+}
