@@ -34,15 +34,15 @@
         "winPrinterProperties":
         [
             {
-                "propertyName": "Config:Tray3",
+                "name": "Config:Tray3",
                 "value": "Installed"
             },
             {
-                "propertyName": "Config:DuplexUnit",
+                "name": "Config:DuplexUnit",
                 "value": "Installed"
             },
             {
-                "propertyName": "Config:ManualDuplex",
+                "name": "Config:ManualDuplex",
                 "value": "False"
             }
         ]
@@ -83,15 +83,15 @@
         "winPrinterProperties":
         [
             {
-                "propertyName": "Config:OptionalTray3",
+                "name": "Config:OptionalTray3",
                 "value": "Installed"
             },
             {
-                "propertyName": "Config:DuplexUnit",
+                "name": "Config:DuplexUnit",
                 "value": "Installed"
             },
             {
-                "propertyName": "Config:ManualDuplex",
+                "name": "Config:ManualDuplex",
                 "value": "False"
             }
         ]
@@ -132,15 +132,15 @@
         "winPrinterProperties":
         [
             {
-                "propertyName": "Config:OptionalTray3",
+                "name": "Config:OptionalTray3",
                 "value": "Installed"
             },
             {
-                "propertyName": "Config:DuplexUnit",
+                "name": "Config:DuplexUnit",
                 "value": "Installed"
             },
             {
-                "propertyName": "Config:ManualDuplex",
+                "name": "Config:ManualDuplex",
                 "value": "False"
             }
         ]
