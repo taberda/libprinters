@@ -149,12 +149,6 @@ printers.forEach(printer => {
     app.doShellScript(`lpadmin ${paramString}`);
 });
 
-// Delete the downloaded files.
-// Not using if downloading to /tmp works, because OS will clean it up later.
-// updateProgress("Deleting temporary folder");
-// console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
-// app.doShellScript(`rm -R ${scriptFolder}`);
-
 // Launch Printers & Scanners pane in System Preferences.
 var prefs = Application("System Preferences");
 var printersPane = prefs.panes.byName("Printers &\nScanners");
