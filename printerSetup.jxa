@@ -17,8 +17,7 @@ function curlJson(uri)
 }
 
 // Json and gz files here.
-// Point this to main before merging.
-var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/UpdateForMonterey";
+var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/main";
 
 // Contains URIs like driver download and GoPrint server address.
 var remoteUris = curlJson(`${repoUri}/remoteUris.json`);
