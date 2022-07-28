@@ -9,10 +9,20 @@ function updateProgress(text)
     Progress.description = text;
 }
 
-var GoPrintUri = "lpd://goprint-sw.mdc.musc.edu";
+function curlJson(uri)
+{
+    let stringResult = app.doShellScript(`curl ${uri}`, {administratorPrivileges:true});
+    let jsonResult = JSON.parse(stringResult);
+    return jsonResult;
+}
 
 // Json and gz files here.
 var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/main";
+
+// Contains URIs like driver download and GoPrint server address.
+var remoteUris = curlJson(`${repoUri}/remoteUris.json`);
+
+var GoPrintUri = remoteUris["GoPrintLpd"];
 
 // macOS stores PPD files here.
 var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
@@ -21,7 +31,7 @@ var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
 var scriptFolder = Path("/tmp/LibPrinterSetup");
 
 // Download location for the HP driver pack, where we're saving to, where we're mounting it, and where its installer package is.
-var driverBundleDmgRemotePath = "https://updates.cdn-apple.com/2020/macos/001-41745-20201210-DBC9B46B-88B2-4032-87D9-449AF1D20804/HewlettPackardPrinterDrivers.dmg";
+var driverBundleDmgRemotePath = remoteUris["driverBundleDmg"];
 var driverBundleDmgLocalName = "driverBundle.dmg";
 var driverBundleDmgLocalPath = Path(`${scriptFolder}/${driverBundleDmgLocalName}`);
 var driverBundleDmgMountPoint = Path("/Volumes/driverBundle");
@@ -32,9 +42,7 @@ console.log(`driverBundleDmgLocalPath: ${driverBundleDmgLocalPath}`);
 console.log(`driverBundlePkgLocalPath: ${driverBundlePkgLocalPath}`);
 
 // SHA-256 checksums for the dmg and gz files.
-var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
-var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`, {administratorPrivileges:true});
-var sha256Hashes = JSON.parse(sha256HashesString);
+var sha256Hashes = curlJson(`${repoUri}/sha256Hashes.json`);
 
 function testPath(path)
 {
@@ -91,13 +99,8 @@ if (testFile(scriptFolder,driverBundleDmgLocalName) == false)
 
 updateProgress("Downloading printer information");
 // Keeping model definitions and printer list separate from app to facilitate future changes.
-// Need to pick a better host for production.
-var printerModelsRemotePath = `${repoUri}/printerModels.json`;
-var printersRemotePath = `${repoUri}/printers.json`;
-var printerModelsString = app.doShellScript(`curl ${printerModelsRemotePath}`);
-var printersString = app.doShellScript(`curl ${printersRemotePath}`);
-var printerModels = JSON.parse(printerModelsString);
-var printers = JSON.parse(printersString);
+var printerModels = curlJson(`${repoUri}/printerModels.json`);
+var printers = curlJson(`${repoUri}/printers.json`);
 
 // Mount the dmg file, run the installer, and then dismount the dmg.
 updateProgress("Installing driver bundle");
@@ -144,12 +147,6 @@ printers.forEach(printer => {
     console.log(`adding ${printer.description}: (doShellScript) lpadmin ${paramString}`);
     app.doShellScript(`lpadmin ${paramString}`);
 });
-
-// Delete the downloaded files.
-// Not using if downloading to /tmp works, because OS will clean it up later.
-// updateProgress("Deleting temporary folder");
-// console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
-// app.doShellScript(`rm -R ${scriptFolder}`);
 
 // Launch Printers & Scanners pane in System Preferences.
 var prefs = Application("System Preferences");
