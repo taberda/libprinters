@@ -9,10 +9,14 @@ function updateProgress(text)
     Progress.description = text;
 }
 
-var GoPrintUri = "lpd://goprint-sw.mdc.musc.edu";
-
 // Json and gz files here.
 var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/main";
+
+var remoteUrisPath = `${repoUri}/remoteUris.json`;
+var remoteUrisString = app.doShellScript(`curl ${remoteUrisPath}`, {administratorPrivileges:true});
+var remoteUris = JSON.parse(remoteUrisString);
+
+var GoPrintUri = remoteUris["GoPrintLpd"];
 
 // macOS stores PPD files here.
 var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
@@ -21,7 +25,7 @@ var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
 var scriptFolder = Path("/tmp/LibPrinterSetup");
 
 // Download location for the HP driver pack, where we're saving to, where we're mounting it, and where its installer package is.
-var driverBundleDmgRemotePath = "https://updates.cdn-apple.com/2020/macos/001-41745-20201210-DBC9B46B-88B2-4032-87D9-449AF1D20804/HewlettPackardPrinterDrivers.dmg";
+var driverBundleDmgRemotePath = remoteUris["DriverBundleDmg"];
 var driverBundleDmgLocalName = "driverBundle.dmg";
 var driverBundleDmgLocalPath = Path(`${scriptFolder}/${driverBundleDmgLocalName}`);
 var driverBundleDmgMountPoint = Path("/Volumes/driverBundle");
