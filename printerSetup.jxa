@@ -10,7 +10,8 @@ function updateProgress(text)
 }
 
 // Json and gz files here.
-var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/main";
+// Point this to main before merging.
+var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/UpdateForMonterey";
 
 var remoteUrisPath = `${repoUri}/remoteUris.json`;
 var remoteUrisString = app.doShellScript(`curl ${remoteUrisPath}`, {administratorPrivileges:true});
