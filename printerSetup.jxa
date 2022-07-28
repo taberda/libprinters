@@ -26,7 +26,7 @@ var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
 var scriptFolder = Path("/tmp/LibPrinterSetup");
 
 // Download location for the HP driver pack, where we're saving to, where we're mounting it, and where its installer package is.
-var driverBundleDmgRemotePath = remoteUris["DriverBundleDmg"];
+var driverBundleDmgRemotePath = remoteUris["driverBundleDmg"];
 var driverBundleDmgLocalName = "driverBundle.dmg";
 var driverBundleDmgLocalPath = Path(`${scriptFolder}/${driverBundleDmgLocalName}`);
 var driverBundleDmgMountPoint = Path("/Volumes/driverBundle");
