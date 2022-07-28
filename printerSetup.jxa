@@ -9,13 +9,21 @@ function updateProgress(text)
     Progress.description = text;
 }
 
+function curlJson(uri)
+{
+    let stringResult = app.doShellScript(`curl ${uri}`, {administratorPrivileges:true});
+    let jsonResult = JSON.parse(stringResult);
+    return jsonResult;
+}
+
 // Json and gz files here.
 // Point this to main before merging.
 var repoUri = "https://raw.githubusercontent.com/taberda/libprinters/UpdateForMonterey";
 
-var remoteUrisPath = `${repoUri}/remoteUris.json`;
-var remoteUrisString = app.doShellScript(`curl ${remoteUrisPath}`, {administratorPrivileges:true});
-var remoteUris = JSON.parse(remoteUrisString);
+// var remoteUrisPath = `${repoUri}/remoteUris.json`;
+// var remoteUrisString = app.doShellScript(`curl ${remoteUrisPath}`, {administratorPrivileges:true});
+// var remoteUris = JSON.parse(remoteUrisString);
+var remoteUris = curlJson(`${repoUri}/remoteUris.json`);
 
 var GoPrintUri = remoteUris["GoPrintLpd"];
 
@@ -37,9 +45,10 @@ console.log(`driverBundleDmgLocalPath: ${driverBundleDmgLocalPath}`);
 console.log(`driverBundlePkgLocalPath: ${driverBundlePkgLocalPath}`);
 
 // SHA-256 checksums for the dmg and gz files.
-var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
-var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`, {administratorPrivileges:true});
-var sha256Hashes = JSON.parse(sha256HashesString);
+// var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
+// var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`, {administratorPrivileges:true});
+// var sha256Hashes = JSON.parse(sha256HashesString);
+var sha256Hashes = curlJson(`${repoUri}/sha256Hashes.json`);
 
 function testPath(path)
 {
@@ -97,12 +106,14 @@ if (testFile(scriptFolder,driverBundleDmgLocalName) == false)
 updateProgress("Downloading printer information");
 // Keeping model definitions and printer list separate from app to facilitate future changes.
 // Need to pick a better host for production.
-var printerModelsRemotePath = `${repoUri}/printerModels.json`;
-var printersRemotePath = `${repoUri}/printers.json`;
-var printerModelsString = app.doShellScript(`curl ${printerModelsRemotePath}`);
-var printersString = app.doShellScript(`curl ${printersRemotePath}`);
-var printerModels = JSON.parse(printerModelsString);
-var printers = JSON.parse(printersString);
+// var printerModelsRemotePath = `${repoUri}/printerModels.json`;
+// var printersRemotePath = `${repoUri}/printers.json`;
+// var printerModelsString = app.doShellScript(`curl ${printerModelsRemotePath}`);
+// var printersString = app.doShellScript(`curl ${printersRemotePath}`);
+// var printerModels = JSON.parse(printerModelsString);
+// var printers = JSON.parse(printersString);
+var printerModels = curlJson(`${repoUri}/printerModels.json`);
+var printers = curlJson(`${repoUri}/printers.json`);
 
 // Mount the dmg file, run the installer, and then dismount the dmg.
 updateProgress("Installing driver bundle");
